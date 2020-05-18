@@ -7,7 +7,6 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <errno.h>
 #include <unistd.h>
 #include "debug.h"
@@ -142,6 +141,4 @@ int main(int argc, char *argv[]){
                 LOGE("exit reason:%s\n", run->exit_reason);
         }
     }
-    close(kvm);
-    return 0;
 }
