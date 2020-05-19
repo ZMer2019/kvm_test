@@ -27,8 +27,6 @@ kata-runtime
 - kata-runtime是Kata Container运行时命令行接口部分（CLI），它利用virtcontainers软件包提供了符合标准的高性能运行时，该运行时创建了在Linux主机上运行的硬件虚拟化Linux容器。
   - 该runtime：OCI兼容，CRI-O兼容，
   
-- Runtine
-  - 该runtime：OCI兼容，CRI-O兼
   
 - Runtime V2,
-  -rRuntime V2 为runtime开发者用于容器集成提供了最终接口，尽管这些shim API比较少，但覆盖了容器的执行周期
+  - Runtime V2 为runtime开发者用于容器集成提供了最终接口，尽管这些shim API比较少，但覆盖了容器的执行周期
