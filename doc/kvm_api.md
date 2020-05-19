@@ -12,4 +12,15 @@ kvm api是一组ioctl的调用，用于控制虚拟机的各个方面，ioctl主
   - device ioctl 的调用必须同在构建vm的经常空间
   
 ### File descriptor
-  kvm API基本围绕着文件描述符开展的。通过open("dev/kvm")的初始化获取kvm子系统的文件描述符，这个描述符可用于system ioctl，一个参数为KVM_CREATE_VM的ioctl调用将会创建一个VM的文件描述符（VM fd），此描述符用于VM ioctl;接着以KVM_CREATE_VCPU或者KVM_CREATE_DEVICE
+  
+  - kvm API基本围绕着文件描述符开展的。通过open("dev/kvm")的初始化获取kvm子系统的文件描述符，这个描述符可用于system ioctl，一个参数为KVM_CREATE_VM的ioctl调用将会创建一个VM的文件描述符（VM fd），此描述符用于VM ioctl;接着以KVM_CREATE_VCPU或者KVM_CREATE_DEVICE为参数调用ioctl来创建vcpu和vdevice，并且返回对应设备的文件描述符，最好通过对应的文件描述符来控制对应设备。
+  
+  - 一般来说，文件描述符在进程之间可以使用fork或者unix域套接字的SCM_RIGHTS来传递迁移。这些技巧在kvm中明确是不支持的。虽然不会对宿主机造成什么伤害，但是不能保证KVM API的确切行为。
+  - 尽管VM ioctl只能是创建VM的进程来调用，但是一个VM的生命周期还是和为难描述符关联，不是进程的生命周期，也就是说，VM及其其他的资源，包括相关的地址空间，只有所有的和VM相关的文件描述符都释放了，vm才会被释放，比如，通过KVM_CREATE_VM创建一个VM之后，再调用fork，只有在父进程和子进程都释放了关联的描述符，VM才会被释放资源。
+  
+  
+### 内核扩展说明
+- 从Linux 2.6.22之后，KVM ABI已经稳定，没有向后的兼容性修改；但是实际上有一个向后的兼容性内核扩展
+- 这个内核扩展不是基于内核的版本号的，
+
+### API的描述
