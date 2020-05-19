@@ -106,7 +106,9 @@ kvm api是一组ioctl的调用，用于控制虚拟机的各个方面，ioctl主
 
     
 ### KVM_GET_API_VERSION
-
+- Type: system ioctl
+- Parameters: none
+- Returns: constant KVM_API_VERSION (=12)
 
 
 
