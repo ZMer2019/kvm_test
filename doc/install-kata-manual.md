@@ -40,3 +40,12 @@
 
 - go get -d -u github.com/kata-containers/agent
 - cd $GOPATH/src/github.com/kata-containers/agent && make
+
+- 安装docker
+* 创建local rootfs
+- export ROOTFS_DIR=${GOPATH}/src/github.com/kata-containers/osbuilder/rootfs-builder/rootfs
+- sudo rm -rf ${ROOTFS_DIR}
+- cd $GOPATH/src/github.com/kata-containers/osbuilder/rootfs-builder
+
+- script -fec 'sudo -E GOPATH=$GOPATH USE_DOCKER=true SECCOMP=no ./rootfs.sh ubuntu'   //生成ubuntu版本的，支持centos版本
+
